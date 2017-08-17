@@ -18,6 +18,14 @@ class Vampire
     @in_coffin
   end
 
+  def in_coffin=(in_coffin)
+    @in_coffin = in_coffin
+  end
+
+  def drank_blood_today=(drank_blood_today)
+    @drank_blood_today = drank_blood_today
+  end
+
   def drank_blood_today
     @drank_blood_today
   end
@@ -35,11 +43,13 @@ class Vampire
   end
 
   def self.sunset
-   @drank_blood_today = false
-   @in_coffin = false
+   @@coven.each do |vampire|
+     vampire.drank_blood_today = false
+     vampire.in_coffin = false
   end
+end
 
-  def self.go_home
+  def go_home
     @in_coffin = true
   end
 
@@ -47,4 +57,12 @@ end
 
 
 vampire1 = Vampire.create("sam", "100", true, true)
+vampire2 = Vampire.create("bbb", "111", true, true)
+vampire3 = Vampire.create("ccc", "112", false, false)
 puts vampire1.inspect
+puts Vampire.sunrise
+puts vampire3.inspect
+
+vampire3.go_home
+vampire3.drank_blood_today
+puts vampire3.inspect
